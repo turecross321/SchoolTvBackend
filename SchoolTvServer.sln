@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolTvServer", "SchoolTvServer\SchoolTvServer.csproj", "{AB9CA07D-663F-48DF-A3F0-571809F50599}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AB9CA07D-663F-48DF-A3F0-571809F50599}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB9CA07D-663F-48DF-A3F0-571809F50599}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB9CA07D-663F-48DF-A3F0-571809F50599}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB9CA07D-663F-48DF-A3F0-571809F50599}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
