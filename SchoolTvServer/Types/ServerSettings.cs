@@ -8,4 +8,6 @@ public record ServerSettings
     public string SkolmatenClientId { get; set; }
     public string SkolmatenClientVersionId { get; set; }
     public long SchoolId { get; set; }
+    public string GoogleClassromApiKey { get; set; }
+    public string GoogleClassroomCourseId { get; set; }
 }

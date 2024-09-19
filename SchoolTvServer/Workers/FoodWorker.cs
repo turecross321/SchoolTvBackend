@@ -19,7 +19,7 @@ public class FoodWorker(IOptions<ServerSettings> settings, IMemoryCache memoryCa
             Menu menu = await client.GetRecentMenu(settings.Value.SchoolId, 2, 0);
             memoryCache.Set("SchoolMenu", menu, TimeSpan.FromDays(1));
             
-            await Task.Delay(TimeSpan.FromDays(1), stoppingToken);
+            await Task.Delay(TimeSpan.FromHours(6), stoppingToken);
         }
     }
 }

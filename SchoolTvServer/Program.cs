@@ -11,6 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.Configure<ServerSettings>(configuration.GetSection("ServerSettings"));
 builder.Services.AddHostedService<FoodWorker>();
+builder.Services.AddHostedService<ClassroomWorker>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll",
