@@ -6,7 +6,7 @@ using SkolmatenApi.Types;
 
 namespace SchoolTvServer.Services;
 
-public class SchoolFoodService(ILogger logger, IMemoryCache memoryCache, IOptions<ServerSettings> settings)
+public class SchoolFoodService(ILogger<SchoolFoodService> logger, IMemoryCache memoryCache, IOptions<ServerSettings> settings)
 {
     private const string MemoryCacheKey = "SchoolMenu";
     public async Task<Menu?> GetMenu()

@@ -2,8 +2,14 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using SchoolTvServer.Services;
 using SchoolTvServer.Types;
 
-var builder = WebApplication.CreateBuilder(args);
-var configuration = builder.Configuration;
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+builder.Configuration
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
+    .AddEnvironmentVariables();
+
+ConfigurationManager configuration = builder.Configuration;
 
 builder.Services.AddMemoryCache();
 builder.Services.AddControllers();

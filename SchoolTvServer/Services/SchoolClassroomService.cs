@@ -7,10 +7,13 @@ using SchoolTvServer.Types;
 
 namespace SchoolTvServer.Services;
 
-public class SchoolClassroomService(ILogger logger, IMemoryCache memoryCache, IOptions<ServerSettings> settings)
+public class SchoolClassroomService(
+    ILogger<SchoolClassroomService> logger,
+    IMemoryCache memoryCache,
+    IOptions<ServerSettings> settings)
 {
     private const string MemoryCacheKey = "ClassroomAnnouncement";
-    
+
     public async Task<ClassroomAnnouncementResponse?> GetLatestAnnouncement()
     {
         ClassroomAnnouncementResponse? response = 
