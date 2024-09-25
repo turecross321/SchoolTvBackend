@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using SchoolTvServer.Database;
 using SchoolTvServer.Types;
 
 namespace SchoolTvServer.Controllers;
@@ -11,15 +12,8 @@ public class TemperatureController: ControllerBase
     public async Task<IActionResult> UploadTemperature([FromBody] TemperatureRequest body)
     {
         await using DatabaseContext database = new();
-
-        var temperature = await database.Temperatures.AddAsync(new DbTemperature()
-        {
-            Celsius = body.Celsius,
-            Date = body.Date
-        });
-        await database.SaveChangesAsync();
         
-        return Ok(temperature.Entity);
+        return Ok(database.AddTemperature(body.Celsius, body.Date));
     }
 
     [HttpGet("latest")]
@@ -27,6 +21,6 @@ public class TemperatureController: ControllerBase
     {
         await using DatabaseContext database = new();
 
-        return Ok(database.Temperatures.OrderByDescending(t => t.Id).FirstOrDefault());
+        return Ok(database.GetLatestTemperature());
     }
 }

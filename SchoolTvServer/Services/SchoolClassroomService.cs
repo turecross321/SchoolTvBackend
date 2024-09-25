@@ -5,12 +5,19 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using SchoolTvServer.Types;
 
-namespace SchoolTvServer.Workers;
+namespace SchoolTvServer.Services;
 
-public class ClassroomWorker(IOptions<ServerSettings> settings, IMemoryCache memoryCache, ILogger<ClassroomWorker> logger) : BackgroundService
+public class SchoolClassroomService(ILogger logger, IMemoryCache memoryCache, IOptions<ServerSettings> settings)
 {
-    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    private const string MemoryCacheKey = "ClassroomAnnouncement";
+    
+    public async Task<ClassroomAnnouncementResponse?> GetLatestAnnouncement()
     {
+        ClassroomAnnouncementResponse? response = 
+            memoryCache.Get<ClassroomAnnouncementResponse>(MemoryCacheKey);
+        if (response != null)
+            return response;
+        
         ClassroomService service = new ClassroomService(new BaseClientService.Initializer()
         {
             ApplicationName = "School TV",
@@ -20,23 +27,24 @@ public class ClassroomWorker(IOptions<ServerSettings> settings, IMemoryCache mem
         logger.LogInformation("Fetching latest classroom announcement");
         ListAnnouncementsResponse? announcements = await service.Courses.Announcements
             .List(settings.Value.GoogleClassroomCourseId)
-            .ExecuteAsync(stoppingToken);
+            .ExecuteAsync();
         Announcement? latestAnnouncement = announcements.Announcements.FirstOrDefault();
 
         if (latestAnnouncement == null)
         {
             logger.LogWarning("Failed to get the latest classroom announcement.");
-            return;
+            return null;
         }
-        UserProfile? user = await service.UserProfiles.Get(latestAnnouncement.CreatorUserId).ExecuteAsync(stoppingToken);
+        UserProfile? user = await service.UserProfiles.Get(latestAnnouncement.CreatorUserId)
+            .ExecuteAsync();
         
         if (user == null)
         {
             logger.LogWarning("Failed to get the author of the latest classroom announcement.");
-            return;
+            return null;
         }
 
-        ClassroomAnnouncementResponse response = new ClassroomAnnouncementResponse
+        response = new ClassroomAnnouncementResponse
         {
             UserName = user.Name.FullName,
             UserPhotoUrl = user.PhotoUrl,
@@ -45,7 +53,7 @@ public class ClassroomWorker(IOptions<ServerSettings> settings, IMemoryCache mem
             LastModifiedDate = (DateTimeOffset)latestAnnouncement.UpdateTimeDateTimeOffset!
         };
         
-        memoryCache.Set("ClassroomAnnouncement", response, TimeSpan.FromDays(1));
-        await Task.Delay(TimeSpan.FromHours(6), stoppingToken);
+        memoryCache.Set(MemoryCacheKey, response, TimeSpan.FromDays(1));
+        return response;
     }
 }

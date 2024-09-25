@@ -1,13 +1,11 @@
-﻿using System.Data.Common;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
+﻿using Microsoft.EntityFrameworkCore;
 using SchoolTvServer.Types;
 
-namespace SchoolTvServer;
+namespace SchoolTvServer.Database;
 
-public class DatabaseContext: DbContext
+public partial class DatabaseContext: DbContext
 {
-    public DbSet<DbTemperature> Temperatures { get; set; }
+    private DbSet<DbTemperature> Temperatures { get; set; }
     
     public string DbPath { get; }
 
