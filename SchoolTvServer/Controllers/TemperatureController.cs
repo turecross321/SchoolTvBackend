@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using SchoolTvServer.Database;
 using SchoolTvServer.Types;
 

@@ -1,4 +1,3 @@
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using SchoolTvServer.Services;
 using SchoolTvServer.Types;
 

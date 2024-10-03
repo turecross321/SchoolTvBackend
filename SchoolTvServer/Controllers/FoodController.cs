@@ -1,9 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Options;
 using SchoolTvServer.Services;
-using SchoolTvServer.Types;
-using SkolmatenApi.Client;
 using SkolmatenApi.Types;
 
 namespace SchoolTvServer.Controllers;

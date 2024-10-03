@@ -1,5 +1,4 @@
-﻿using System.Web.Http.Results;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SchoolTvServer.Services;
 using SchoolTvServer.Types;
 

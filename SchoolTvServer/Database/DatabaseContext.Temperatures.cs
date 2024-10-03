@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
-using SchoolTvServer.Types;
+﻿using SchoolTvServer.Types;
 
 namespace SchoolTvServer.Database;
 
