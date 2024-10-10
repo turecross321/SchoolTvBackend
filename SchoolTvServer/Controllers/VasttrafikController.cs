@@ -5,10 +5,11 @@ using SchoolTvServer.Types;
 
 namespace SchoolTvServer.Controllers;
 
+[Route("vasttrafik")]
 public class VasttrafikController(VasttrafikService vasttrafik) : ControllerBase
 {
-    [HttpGet("bus")]
-    public async Task<IActionResult> Test()
+    [HttpGet("departures")]
+    public async Task<IActionResult> GetDepartures()
     {
         var departures = await vasttrafik.GetDepartures();
 
