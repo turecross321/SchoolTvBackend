@@ -10,4 +10,8 @@ public record ServerSettings
     public long SchoolId { get; set; }
     public string GoogleClassromApiKey { get; set; }
     public string GoogleClassroomCourseId { get; set; }
+    public string VasttrafikClientIdentifier { get; set; }
+    public string VasttrafikSecret { get; set; }
+    public string VasttrafikAuthorizationKey { get; set; }
+    public string VasttrafikDepartureStopGid { get; set; }
 }

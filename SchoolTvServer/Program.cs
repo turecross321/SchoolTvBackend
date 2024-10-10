@@ -17,6 +17,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.Configure<ServerSettings>(configuration.GetSection("ServerSettings"));
 builder.Services.AddSingleton<SchoolClassroomService>();
 builder.Services.AddSingleton<SchoolFoodService>();
+builder.Services.AddSingleton<VasttrafikService>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll",

@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolTvServer", "SchoolTvServer\SchoolTvServer.csproj", "{AB9CA07D-663F-48DF-A3F0-571809F50599}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Org.OpenAPITools.Vasttrafik", "Org.OpenAPITools.Vasttrafik\Org.OpenAPITools.Vasttrafik.csproj", "{CFE50B79-CC19-4A88-AD65-4C5F859E6EB1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{AB9CA07D-663F-48DF-A3F0-571809F50599}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB9CA07D-663F-48DF-A3F0-571809F50599}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB9CA07D-663F-48DF-A3F0-571809F50599}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFE50B79-CC19-4A88-AD65-4C5F859E6EB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFE50B79-CC19-4A88-AD65-4C5F859E6EB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFE50B79-CC19-4A88-AD65-4C5F859E6EB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFE50B79-CC19-4A88-AD65-4C5F859E6EB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
