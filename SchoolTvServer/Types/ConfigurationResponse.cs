@@ -1,6 +1,6 @@
 ﻿namespace SchoolTvServer.Types;
 
-public record BrandingResponse()
+public record ConfigurationResponse()
 {
     public string BrandName { get; init; }
     public string LogoUrl { get; init; }

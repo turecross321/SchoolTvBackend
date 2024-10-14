@@ -1,3 +1,4 @@
+using SchoolTvServer.Database;
 using SchoolTvServer.Services;
 using SchoolTvServer.Types;
 
@@ -10,6 +11,7 @@ builder.Configuration
 
 ConfigurationManager configuration = builder.Configuration;
 
+builder.Services.AddDbContext<DatabaseContext>();
 builder.Services.AddMemoryCache();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

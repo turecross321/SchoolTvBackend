@@ -5,21 +5,17 @@ using SchoolTvServer.Types;
 namespace SchoolTvServer.Controllers;
 
 [Route("temperature")]
-public class TemperatureController: ControllerBase
+public class TemperatureController(DatabaseContext context): ControllerBase
 {
     [HttpPost("upload")]
-    public async Task<IActionResult> UploadTemperature([FromBody] TemperatureRequest body)
+    public IActionResult UploadTemperature([FromBody] TemperatureRequest body)
     {
-        await using DatabaseContext database = new();
-        
-        return Ok(database.AddTemperature(body.Celsius, body.Date));
+        return Ok(context.AddTemperature(body.Celsius, body.Date));
     }
 
     [HttpGet("latest")]
-    public async Task<IActionResult> GetLatestTemperature()
+    public IActionResult GetLatestTemperature()
     {
-        await using DatabaseContext database = new();
-
-        return Ok(database.GetLatestTemperature());
+        return Ok(context.GetLatestTemperature());
     }
 }

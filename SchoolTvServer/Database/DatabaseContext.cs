@@ -6,6 +6,7 @@ namespace SchoolTvServer.Database;
 public partial class DatabaseContext: DbContext
 {
     private DbSet<DbTemperature> Temperatures { get; set; }
+    private DbSet<DbSchoolBreak> SchoolBreaks { get; set; }
     
     public string DbPath { get; }
 
