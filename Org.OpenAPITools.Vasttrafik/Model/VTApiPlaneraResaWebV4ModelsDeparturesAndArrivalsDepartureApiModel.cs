@@ -9,19 +9,11 @@
 
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.IO;
 using System.Runtime.Serialization;
 using System.Text;
-using System.Text.RegularExpressions;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Linq;
 using System.ComponentModel.DataAnnotations;
-using OpenAPIDateConverter = Org.OpenAPITools.Client.OpenAPIDateConverter;
 
 namespace Org.OpenAPITools.Model
 {
@@ -100,7 +92,7 @@ namespace Org.OpenAPITools.Model
         /// </summary>
         /// <value>The estimated time of the call in RFC 3339 format.</value>
         [DataMember(Name = "estimatedTime", EmitDefaultValue = true)]
-        public string EstimatedTime { get; set; }
+        public string? EstimatedTime { get; set; }
 
         /// <summary>
         /// The best known time of the call in RFC 3339 format. Is EstimatedTime if exists, otherwise PlannedTime.

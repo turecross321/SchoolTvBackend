@@ -13,5 +13,5 @@ public record ServerSettings
     public string VasttrafikClientIdentifier { get; set; }
     public string VasttrafikSecret { get; set; }
     public string VasttrafikAuthorizationKey { get; set; }
-    public string VasttrafikDepartureStopGid { get; set; }
+    public List<VasttrafikStopSettings> VasttrafikDepartureStops { get; set; } = [];
 }

@@ -8,8 +8,6 @@
  */
 
 
-using System;
-
 namespace Org.OpenAPITools.Client
 {
     /// <summary>

@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Options;
 using Org.OpenAPITools.Api;
 using Org.OpenAPITools.Client;
-using Org.OpenAPITools.Client.Auth;
 using Org.OpenAPITools.Model;
 using SchoolTvServer.Types;
 
@@ -15,9 +14,9 @@ public class VasttrafikService(
 {
     private const string MemoryCacheKey = "Departures";
     private const string LoginMemoryCacheKey = "VasttrafikLogin";
-    public async Task<List<DepartureResponse>> GetDepartures()
+    public async Task<List<VTApiPlaneraResaWebV4ModelsDeparturesAndArrivalsDepartureApiModel>> GetDepartures()
     {
-        List<DepartureResponse>? cached = memoryCache.Get<List<DepartureResponse>>(MemoryCacheKey);
+        List<VTApiPlaneraResaWebV4ModelsDeparturesAndArrivalsDepartureApiModel>? cached = memoryCache.Get<List<VTApiPlaneraResaWebV4ModelsDeparturesAndArrivalsDepartureApiModel>>(MemoryCacheKey);
         if (cached != null)
             return cached;
 
@@ -37,19 +36,35 @@ public class VasttrafikService(
         
         
         StopAreasApi api = new StopAreasApi(configuration);
-        logger.LogInformation("Fetching departures");
-        VTApiPlaneraResaWebV4ModelsDeparturesAndArrivalsGetDeparturesResponse departures = 
-            await api.StopAreasStopAreaGidDeparturesGetAsync(stopAreaGid: settings.Value.VasttrafikDepartureStopGid);
-        
-        List<DepartureResponse> response = departures.Results.Select(DepartureResponse.FromApi).ToList();
-        while (response.Count < departures.Pagination.Size)
-        {
-            logger.LogInformation("Fetching paginated departures");
-            departures = await api.StopAreasStopAreaGidDeparturesGetAsync(stopAreaGid: settings.Value.VasttrafikDepartureStopGid,
-                offset: response.Count);
-            response.AddRange(departures.Results.Select(DepartureResponse.FromApi));
-        }
 
+        List<VTApiPlaneraResaWebV4ModelsDeparturesAndArrivalsDepartureApiModel> response = [];
+        
+        foreach (var stopArea in settings.Value.VasttrafikDepartureStops)
+        {
+            int fetchedAmount = 0;
+            VTApiPlaneraResaWebV4ModelsDeparturesAndArrivalsGetDeparturesResponse? departures = null;
+            
+            while (departures == null || fetchedAmount < departures.Pagination.Size)
+            {
+                logger.LogInformation($"Fetching departures for {stopArea.Gid}");
+                departures = await api.StopAreasStopAreaGidDeparturesGetAsync(stopAreaGid: stopArea.Gid, offset: fetchedAmount);
+                fetchedAmount += departures.Results.Count;
+
+                var add = departures.Results;
+                
+                // Remove excluded platforms
+                if (stopArea.ExcludePlatforms != null)
+                {
+                    add = departures.Results
+                        .Where(d => !stopArea.ExcludePlatforms.Contains(d.StopPoint.Platform))
+                        .ToList();
+                }
+                
+                response.AddRange(add);
+            }
+
+        }
+        
         memoryCache.Set(MemoryCacheKey, response, TimeSpan.FromSeconds(60));
         return response;
     }
