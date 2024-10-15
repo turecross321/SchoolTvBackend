@@ -8,6 +8,6 @@ public class DbSchoolBreak
     [Key]
     public required DateTimeOffset StartDate { get; set; }
     public required DateTimeOffset EndDate { get; set; }
-    public required bool AlwaysShow { get; set; }
+    public required SchoolBreakType BreakType { get; set; }
     public required string ColorHex { get; set; }
 }

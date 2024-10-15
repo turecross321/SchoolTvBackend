@@ -16,10 +16,10 @@ public class SchoolBreaksController(DatabaseContext context) : ControllerBase
                 Name = b.Name,
                 StartDate = b.StartDate,
                 EndDate = b.EndDate,
-                AlwaysShow = b.AlwaysShow,
+                BreakType = b.BreakType,
                 ColorHex = b.ColorHex
             }),
-            LatestEndedBreakEndDate = context.GetLatestStartedBreak()?.EndDate
+            LatestStartedSummerBreakEndDate = context.GetLatestStartedSummerBreak()?.EndDate
         });
     }
 }
