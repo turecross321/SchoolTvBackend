@@ -22,7 +22,9 @@ public record StopAreaResponse
             response.Add(new StopAreaResponse
             {
                 Name = firstDeparture.StopPoint.Name,
-                Departures = group.OrderBy(d => d.StopPoint.Platform).Select(DepartureResponse.FromApi),
+                Departures = group
+                    .OrderBy(d => d.EstimatedTime)
+                    .Select(DepartureResponse.FromApi),
                 DistanceInMeters = GetDistanceInMeters(firstDeparture.StopPoint.Latitude ?? 0, firstDeparture.StopPoint.Longitude ?? 0, schoolLatitude, schoolLongitude)
             });
         }
