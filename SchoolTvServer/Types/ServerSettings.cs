@@ -14,4 +14,6 @@ public record ServerSettings
     public string VasttrafikSecret { get; set; }
     public string VasttrafikAuthorizationKey { get; set; }
     public List<VasttrafikStopSettings> VasttrafikDepartureStops { get; set; } = [];
+    public double SchoolLatitude { get; set; } = 0;
+    public double SchoolLongitude { get; set; } = 0;
 }
