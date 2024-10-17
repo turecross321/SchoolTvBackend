@@ -4,18 +4,19 @@ using SchoolTvServer.Types;
 
 namespace SchoolTvServer.Controllers;
 
-public class ConfigurationController(IOptions<ServerSettings> configuration) : ControllerBase
+public class SettingsController(IOptions<ServerSettings> configuration) : ControllerBase
 {
     private readonly ServerSettings _configuration = configuration.Value;
 
-    [HttpGet("/configuration")]
-    public ActionResult Configuration()
+    [HttpGet("/settings")]
+    public ActionResult Settings()
     {
-        return Ok(new ConfigurationResponse()
+        return Ok(new SettingsResponse
         {
             BrandName = _configuration.BrandName,
             LogoUrl = _configuration.LogoUrl,
             LogoAltText = _configuration.LogoAltText,
+            AprilFoolsDestination = _configuration.AprilFoolsDestination,
         });
     }
 }

@@ -17,6 +17,5 @@ public record ServerSettings
     public List<VasttrafikStopSettings> VasttrafikDepartureStops { get; set; } = [];
     public double SchoolLatitude { get; set; } = 0;
     public double SchoolLongitude { get; set; } = 0;
-    
-    // toDO: FUNNY PLACE: FRIDASKOLAN
+    public string AprilFoolsDestination { get; set; }
 }
