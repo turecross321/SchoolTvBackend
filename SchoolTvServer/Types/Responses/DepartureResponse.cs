@@ -1,6 +1,6 @@
 ﻿using Org.OpenAPITools.Model;
 
-namespace SchoolTvServer.Types;
+namespace SchoolTvServer.Types.Responses;
 
 public record DepartureResponse
 {

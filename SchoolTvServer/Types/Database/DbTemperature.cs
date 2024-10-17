@@ -1,4 +1,4 @@
-﻿namespace SchoolTvServer.Types;
+﻿namespace SchoolTvServer.Types.Database;
 
 public record DbTemperature
 {

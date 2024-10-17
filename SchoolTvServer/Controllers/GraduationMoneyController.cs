@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using SchoolTvServer.Services;
 using SchoolTvServer.Types;
+using SchoolTvServer.Types.Settings;
 
 namespace SchoolTvServer.Controllers;
 

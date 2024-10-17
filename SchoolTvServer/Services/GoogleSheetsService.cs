@@ -7,6 +7,8 @@ using Google.Apis.Util.Store;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using SchoolTvServer.Types;
+using SchoolTvServer.Types.Responses;
+using SchoolTvServer.Types.Settings;
 
 namespace SchoolTvServer.Services;
 

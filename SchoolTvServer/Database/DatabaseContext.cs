@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SchoolTvServer.Types;
+using SchoolTvServer.Types.Database;
 
 namespace SchoolTvServer.Database;
 

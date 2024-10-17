@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SchoolTvServer.Database;
 using SchoolTvServer.Types;
+using SchoolTvServer.Types.Responses;
 
 namespace SchoolTvServer.Controllers;
 

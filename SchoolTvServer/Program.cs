@@ -1,6 +1,7 @@
 using SchoolTvServer.Database;
 using SchoolTvServer.Services;
 using SchoolTvServer.Types;
+using SchoolTvServer.Types.Settings;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 

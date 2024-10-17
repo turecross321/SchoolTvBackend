@@ -1,4 +1,4 @@
-﻿namespace SchoolTvServer.Types;
+﻿namespace SchoolTvServer.Types.Settings;
 
 public record ServerSettings
 {
@@ -12,7 +12,7 @@ public record ServerSettings
     public long SchoolId { get; set; }
     public string GoogleServiceSecretPath { get; set; }
     public string GoogleClassroomCourseId { get; set; }
-    public List<GraduationMoneyConfiguration> GraduationSpreadsheets { get; set; } = [];
+    public List<GraduationMoneySettings> GraduationSpreadsheets { get; set; } = [];
     public string VasttrafikClientIdentifier { get; set; }
     public string VasttrafikSecret { get; set; }
     public string VasttrafikAuthorizationKey { get; set; }

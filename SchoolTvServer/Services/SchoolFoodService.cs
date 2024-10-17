@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using SchoolTvServer.Types;
+using SchoolTvServer.Types.Settings;
 using SkolmatenApi.Client;
 using SkolmatenApi.Types;
 

@@ -3,6 +3,8 @@ using Microsoft.Extensions.Options;
 using Org.OpenAPITools.Model;
 using SchoolTvServer.Services;
 using SchoolTvServer.Types;
+using SchoolTvServer.Types.Responses;
+using SchoolTvServer.Types.Settings;
 
 namespace SchoolTvServer.Controllers;
 
