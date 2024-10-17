@@ -14,7 +14,6 @@ public class SettingsController(IOptions<ServerSettings> configuration) : Contro
         return Ok(new SettingsResponse
         {
             BrandName = _configuration.BrandName,
-            LogoUrl = _configuration.LogoUrl,
             LogoAltText = _configuration.LogoAltText,
             AprilFoolsDestination = _configuration.AprilFoolsDestination,
         });
