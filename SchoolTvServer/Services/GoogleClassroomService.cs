@@ -7,8 +7,8 @@ using SchoolTvServer.Types;
 
 namespace SchoolTvServer.Services;
 
-public class SchoolClassroomService(
-    ILogger<SchoolClassroomService> logger,
+public class GoogleClassroomService(
+    ILogger<GoogleClassroomService> logger,
     IMemoryCache memoryCache,
     IOptions<ServerSettings> settings)
 {
@@ -16,12 +16,15 @@ public class SchoolClassroomService(
 
     public async Task<ClassroomAnnouncementResponse?> GetLatestAnnouncement()
     {
+        return null;
+        // TODO: REWRITE THIS ENTIRE THING... IT SUCKS
+        /*
         ClassroomAnnouncementResponse? response = 
             memoryCache.Get<ClassroomAnnouncementResponse>(MemoryCacheKey);
         if (response != null)
             return response;
         
-        ClassroomService service = new ClassroomService(new BaseClientService.Initializer()
+        ClassroomService service = new(new BaseClientService.Initializer()
         {
             ApplicationName = "School TV",
             ApiKey = settings.Value.GoogleClassromApiKey
@@ -57,6 +60,6 @@ public class SchoolClassroomService(
         };
         
         memoryCache.Set(MemoryCacheKey, response, TimeSpan.FromDays(1));
-        return response;
+        return response;*/
     }
 }

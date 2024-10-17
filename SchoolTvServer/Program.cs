@@ -17,7 +17,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.Configure<ServerSettings>(configuration.GetSection("ServerSettings"));
-builder.Services.AddSingleton<SchoolClassroomService>();
+builder.Services.AddSingleton<GoogleClassroomService>();
+builder.Services.AddSingleton<GoogleSheetsService>();
 builder.Services.AddSingleton<SchoolFoodService>();
 builder.Services.AddSingleton<VasttrafikService>();
 builder.Services.AddCors(options =>

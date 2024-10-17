@@ -8,6 +8,7 @@
 
     <ItemGroup>
         <PackageReference Include="Google.Apis.Classroom.v1" Version="1.68.0.3541" />
+        <PackageReference Include="Google.Apis.Sheets.v4" Version="1.68.0.3561" />
         <PackageReference Include="Microsoft.AspNet.WebApi.Cors" Version="5.3.0" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.2" />
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />

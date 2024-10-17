@@ -29,13 +29,13 @@ public class VasttrafikService(
         }
         
         
-        Configuration configuration = new Configuration()
+        Configuration configuration = new()
         {
             AccessToken = login.AccessToken
         };
         
         
-        StopAreasApi api = new StopAreasApi(configuration);
+        StopAreasApi api = new(configuration);
 
         List<VTApiPlaneraResaWebV4ModelsDeparturesAndArrivalsDepartureApiModel> response = [];
         
