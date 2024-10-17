@@ -4,12 +4,12 @@ namespace SchoolTvServer.Database;
 
 public partial class DatabaseContext
 {
-    public DbTemperature AddTemperature(float celsius, DateTime date)
+    public DbTemperature AddTemperature(float celsius)
     {
         var temperature = Temperatures.Add(new DbTemperature()
         {
             Celsius = celsius,
-            Date = date
+            Date = DateTime.Now
         });
         SaveChanges();
         return temperature.Entity;

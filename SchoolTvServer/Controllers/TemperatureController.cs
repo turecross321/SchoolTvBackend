@@ -10,7 +10,7 @@ public class TemperatureController(DatabaseContext context): ControllerBase
     [HttpPost("upload")]
     public IActionResult UploadTemperature([FromBody] TemperatureRequest body)
     {
-        return Ok(context.AddTemperature(body.Celsius, body.Date));
+        return Ok(context.AddTemperature(body.Celsius));
     }
 
     [HttpGet("latest")]
