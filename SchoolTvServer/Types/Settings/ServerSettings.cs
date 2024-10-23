@@ -9,7 +9,7 @@ public record ServerSettings
     public string LogoAltText { get; set; }
     public string SkolmatenClientId { get; set; }
     public string SkolmatenClientVersionId { get; set; }
-    public long SchoolId { get; set; }
+    public string SkolmatenSchoolId { get; set; }
     public string GoogleServiceSecretPath { get; set; }
     public string GoogleClassroomCourseId { get; set; }
     public List<GraduationMoneySettings> GraduationSpreadsheets { get; set; } = [];
@@ -20,4 +20,7 @@ public record ServerSettings
     public double SchoolLatitude { get; set; } = 0;
     public double SchoolLongitude { get; set; } = 0;
     public string AprilFoolsDestination { get; set; }
+    // TODO: IMPLEMENT PASSWORDS
+    public string UploadTemperaturePassword { get; set; }
+    public string AccessPassword { get; set; }
 }
