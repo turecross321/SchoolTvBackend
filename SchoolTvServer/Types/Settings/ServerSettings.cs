@@ -20,7 +20,7 @@ public record ServerSettings
     public double SchoolLatitude { get; set; } = 0;
     public double SchoolLongitude { get; set; } = 0;
     public string AprilFoolsDestination { get; set; }
-    // TODO: IMPLEMENT PASSWORDS
+    
     public string UploadTemperaturePassword { get; set; }
-    public string AccessPassword { get; set; }
+    public string ReadOnlyPassword { get; set; }
 }

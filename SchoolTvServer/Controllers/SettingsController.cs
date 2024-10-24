@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using SchoolTvServer.Attributes;
 using SchoolTvServer.Types;
 using SchoolTvServer.Types.Responses;
 using SchoolTvServer.Types.Settings;
@@ -10,6 +11,7 @@ public class SettingsController(IOptions<ServerSettings> configuration) : Contro
 {
     private readonly ServerSettings _configuration = configuration.Value;
 
+    [PasswordType(AccessType.ReadOnly)]
     [HttpGet("/settings")]
     public ActionResult Settings()
     {

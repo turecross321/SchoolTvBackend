@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Authentication;
 using SchoolTvServer.Database;
+using SchoolTvServer.Middlewares;
 using SchoolTvServer.Services;
 using SchoolTvServer.Types;
 using SchoolTvServer.Types.Settings;
@@ -33,7 +35,7 @@ builder.Services.AddCors(options =>
                 .AllowAnyHeader();
         });
 });
-builder.Services.AddHttpLogging(o => { });
+builder.Services.AddHttpLogging(o => {  });
 
 var app = builder.Build();
 app.UseHttpLogging();
@@ -47,5 +49,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("AllowAll");
 app.MapControllers();
+app.UseMiddleware<PasswordMiddleware>();
 
 app.Run();

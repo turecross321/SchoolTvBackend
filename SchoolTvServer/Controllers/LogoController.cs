@@ -2,6 +2,7 @@
 using System.Web.Http.Results;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using SchoolTvServer.Attributes;
 using SchoolTvServer.Types;
 using SchoolTvServer.Types.Settings;
 
@@ -10,12 +11,15 @@ namespace SchoolTvServer.Controllers;
 [Route("logo")]
 public class LogoController(IOptions<ServerSettings> settings, ILogger<LogoController> logger) : ControllerBase
 {
+    [PasswordType(AccessType.ReadOnly)]
     [HttpGet("default")]
     public Task<IActionResult> GetDefaultLogo() => GetLogo(settings.Value.DefaultLogoPngPath);
-    
+
+    [PasswordType(AccessType.ReadOnly)]
     [HttpGet("aprilFools")]
     public Task<IActionResult> GetAprilFoolsLogo() => GetLogo(settings.Value.AprilFoolsLogoPngPath);
     
+    [PasswordType(AccessType.ReadOnly)]
     [HttpGet("night")]
     public Task<IActionResult> GetNightLogo() => GetLogo(settings.Value.NightLogoPngPath);
     

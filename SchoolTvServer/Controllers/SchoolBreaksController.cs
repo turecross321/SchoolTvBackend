@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SchoolTvServer.Attributes;
 using SchoolTvServer.Database;
 using SchoolTvServer.Types;
 using SchoolTvServer.Types.Responses;
@@ -7,6 +8,7 @@ namespace SchoolTvServer.Controllers;
 
 public class SchoolBreaksController(DatabaseContext context) : ControllerBase
 {
+    [PasswordType(AccessType.ReadOnly)]
     [HttpGet("schoolBreaks")]
     public IActionResult GetBreaks()
     {

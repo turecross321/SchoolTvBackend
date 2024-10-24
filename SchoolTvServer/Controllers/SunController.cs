@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using SchoolTvServer.Attributes;
+using SchoolTvServer.Types;
 using SchoolTvServer.Types.Responses;
 using SchoolTvServer.Types.Settings;
 using SunCalcNet;
@@ -9,6 +11,7 @@ namespace SchoolTvServer.Controllers;
 
 public class SunController(IOptions<ServerSettings> settings) : ControllerBase
 {
+    [PasswordType(AccessType.ReadOnly)]
     [HttpGet("sunPhases")]
     public IActionResult GetSunPhases()
     {

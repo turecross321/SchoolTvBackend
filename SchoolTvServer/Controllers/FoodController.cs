@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SchoolTvServer.Attributes;
 using SchoolTvServer.Services;
+using SchoolTvServer.Types;
 using SkolmatenApi.Types;
 
 namespace SchoolTvServer.Controllers;
@@ -7,6 +9,7 @@ namespace SchoolTvServer.Controllers;
 [Route("food")]
 public class FoodController(SchoolFoodService food): ControllerBase
 {
+    [PasswordType(AccessType.ReadOnly)]
     [HttpGet("menu")]
     public async Task<IActionResult> GetMenu()
     {

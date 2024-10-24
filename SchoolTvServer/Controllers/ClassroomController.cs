@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SchoolTvServer.Attributes;
 using SchoolTvServer.Services;
 using SchoolTvServer.Types;
 using SchoolTvServer.Types.Responses;
@@ -8,6 +9,7 @@ namespace SchoolTvServer.Controllers;
 [Route("classroom")]
 public class ClassroomController(GoogleClassroomService googleClassroom) : ControllerBase
 {
+    [PasswordType(AccessType.ReadOnly)]
     [HttpGet("latestAnnouncement")]
     public async Task<IActionResult> GetLatestAnnouncement()
     {
