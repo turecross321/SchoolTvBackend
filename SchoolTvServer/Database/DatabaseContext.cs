@@ -12,9 +12,9 @@ public partial class DatabaseContext: DbContext
 
     public DatabaseContext()
     {
-        var folder = Environment.SpecialFolder.LocalApplicationData;
-        var path = Environment.GetFolderPath(folder);
-        DbPath = System.IO.Path.Join(path, "tv_server.db");
+        // Get the path to the application's bin folder
+        var basePath = AppDomain.CurrentDomain.BaseDirectory;
+        DbPath = Path.Combine(basePath, "tv_server.db");
     }
 
     // The following configures EF to create a Sqlite database file in the
