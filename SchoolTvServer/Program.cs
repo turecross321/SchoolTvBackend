@@ -1,8 +1,6 @@
-using Microsoft.AspNetCore.Authentication;
 using SchoolTvServer.Database;
 using SchoolTvServer.Middlewares;
 using SchoolTvServer.Services;
-using SchoolTvServer.Types;
 using SchoolTvServer.Types.Settings;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);

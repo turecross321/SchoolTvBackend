@@ -3,10 +3,8 @@ using Google.Apis.Auth.OAuth2;
 using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
 using Google.Apis.Sheets.v4.Data;
-using Google.Apis.Util.Store;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
-using SchoolTvServer.Types;
 using SchoolTvServer.Types.Responses;
 using SchoolTvServer.Types.Settings;
 
@@ -25,7 +23,7 @@ public class GoogleSheetsService
         _logger = logger;
         _memoryCache = memoryCache;
 
-        var serviceAccountKeyFile = settings.Value.GoogleServiceSecretPath;
+        var serviceAccountKeyFile = settings.Value.GoogleSheetsServiceSecretPath;
 
         var credential = GoogleCredential.FromFile(serviceAccountKeyFile)
             .CreateScoped(new[] { SheetsService.Scope.Spreadsheets });
@@ -71,7 +69,6 @@ public class GoogleSheetsService
                 continue;
             }
             
-            // TODO: only one lookup would maybe be good??
             int? currentAmount = GetCellNumber(spreadsheet.SpreadsheetId, spreadsheet.CurrentAmountCell);
             int? goal = GetCellNumber(spreadsheet.SpreadsheetId, spreadsheet.GoalCell);
 

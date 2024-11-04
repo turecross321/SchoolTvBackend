@@ -1,54 +1,68 @@
-﻿using Google.Apis.Classroom.v1;
+﻿using Google.Apis.Auth.OAuth2;
+using Google.Apis.Classroom.v1;
 using Google.Apis.Classroom.v1.Data;
 using Google.Apis.Services;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
-using SchoolTvServer.Types;
 using SchoolTvServer.Types.Responses;
 using SchoolTvServer.Types.Settings;
 
 namespace SchoolTvServer.Services;
 
-public class GoogleClassroomService(
-    ILogger<GoogleClassroomService> logger,
-    IMemoryCache memoryCache,
-    IOptions<ServerSettings> settings)
+public class GoogleClassroomService
 {
+    private readonly ClassroomService _service;
+    private readonly ILogger _logger;
+    private readonly IOptions<ServerSettings> _settings;
+    private readonly IMemoryCache _memoryCache;
+
+    public GoogleClassroomService(IOptions<ServerSettings> settings, ILogger<GoogleClassroomService> logger, IMemoryCache memoryCache)
+    {
+        _settings = settings;
+        _logger = logger;
+        _memoryCache = memoryCache;
+
+        var serviceAccountKeyFile = settings.Value.GoogleClassroomServiceSecretPath;
+
+        var credential = GoogleCredential.FromFile(serviceAccountKeyFile)
+            .CreateScoped([ClassroomService.Scope.ClassroomProfilePhotos, ClassroomService.Scope.ClassroomAnnouncementsReadonly]);
+
+        _service = new ClassroomService(new BaseClientService.Initializer()
+        {
+            HttpClientInitializer = credential,
+            ApplicationName = settings.Value.BrandName,
+        });
+            
+        _logger.LogInformation("Google Classroom Service has been initialized.");
+    }
+    
+    
     private const string MemoryCacheKey = "ClassroomAnnouncement";
 
     public async Task<ClassroomAnnouncementResponse?> GetLatestAnnouncement()
     {
-        return null;
-        // TODO: REWRITE THIS ENTIRE THING... IT SUCKS
-        /*
         ClassroomAnnouncementResponse? response = 
-            memoryCache.Get<ClassroomAnnouncementResponse>(MemoryCacheKey);
+            _memoryCache.Get<ClassroomAnnouncementResponse>(MemoryCacheKey);
         if (response != null)
             return response;
         
-        ClassroomService service = new(new BaseClientService.Initializer()
-        {
-            ApplicationName = "School TV",
-            ApiKey = settings.Value.GoogleClassromApiKey
-        });
-
-        logger.LogInformation("Fetching latest classroom announcement");
-        ListAnnouncementsResponse? announcements = await service.Courses.Announcements
-            .List(settings.Value.GoogleClassroomCourseId)
+        _logger.LogInformation("Fetching latest classroom announcement");
+        ListAnnouncementsResponse? announcements = await _service.Courses.Announcements
+            .List(_settings.Value.GoogleClassroomCourseId)
             .ExecuteAsync();
         Announcement? latestAnnouncement = announcements.Announcements.FirstOrDefault();
 
         if (latestAnnouncement == null)
         {
-            logger.LogWarning("Failed to get the latest classroom announcement.");
+            _logger.LogWarning("Failed to get the latest classroom announcement.");
             return null;
         }
-        UserProfile? user = await service.UserProfiles.Get(latestAnnouncement.CreatorUserId)
+        UserProfile? user = await _service.UserProfiles.Get(latestAnnouncement.CreatorUserId)
             .ExecuteAsync();
         
         if (user == null)
         {
-            logger.LogWarning("Failed to get the author of the latest classroom announcement.");
+            _logger.LogWarning("Failed to get the author of the latest classroom announcement.");
             return null;
         }
 
@@ -61,7 +75,7 @@ public class GoogleClassroomService(
             LastModifiedDate = (DateTimeOffset)latestAnnouncement.UpdateTimeDateTimeOffset!
         };
         
-        memoryCache.Set(MemoryCacheKey, response, TimeSpan.FromDays(1));
-        return response;*/
+        _memoryCache.Set(MemoryCacheKey, response, TimeSpan.FromDays(1));
+        return response;
     }
 }

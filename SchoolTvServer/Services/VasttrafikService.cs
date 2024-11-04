@@ -3,7 +3,6 @@ using Microsoft.Extensions.Options;
 using Org.OpenAPITools.Api;
 using Org.OpenAPITools.Client;
 using Org.OpenAPITools.Model;
-using SchoolTvServer.Types;
 using SchoolTvServer.Types.Settings;
 
 namespace SchoolTvServer.Services;

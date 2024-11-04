@@ -1,5 +1,4 @@
-﻿using SchoolTvServer.Types;
-using SchoolTvServer.Types.Database;
+﻿using SchoolTvServer.Types.Database;
 
 namespace SchoolTvServer.Database;
 

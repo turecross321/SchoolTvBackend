@@ -1,6 +1,4 @@
-﻿using System.Net.Mime;
-using System.Web.Http.Results;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using SchoolTvServer.Attributes;
 using SchoolTvServer.Types;

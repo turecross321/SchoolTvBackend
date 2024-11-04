@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Org.OpenAPITools.Model;
 using SchoolTvServer.Attributes;
 using SchoolTvServer.Services;
 using SchoolTvServer.Types;

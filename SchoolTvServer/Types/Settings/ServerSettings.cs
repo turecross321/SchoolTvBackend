@@ -10,7 +10,8 @@ public record ServerSettings
     public string SkolmatenClientId { get; set; }
     public string SkolmatenClientVersionId { get; set; }
     public string SkolmatenSchoolId { get; set; }
-    public string GoogleServiceSecretPath { get; set; }
+    public string GoogleSheetsServiceSecretPath { get; set; }
+    public string GoogleClassroomServiceSecretPath { get; set; }
     public string GoogleClassroomCourseId { get; set; }
     public List<GraduationMoneySettings> GraduationSpreadsheets { get; set; } = [];
     public string VasttrafikClientIdentifier { get; set; }
