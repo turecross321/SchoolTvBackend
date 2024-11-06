@@ -53,6 +53,7 @@ using (IServiceScope scope = app.Services.CreateScope())
 {
     IServiceProvider services = scope.ServiceProvider;
     DatabaseContext dbContext = services.GetRequiredService<DatabaseContext>();
+    dbContext.Database.EnsureCreated();
     dbContext.Database.Migrate();
 }
 
