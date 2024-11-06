@@ -12,7 +12,6 @@ public partial class DatabaseContext: DbContext
 
     public DatabaseContext()
     {
-        // Get the path to the application's bin folder
         var basePath = AppDomain.CurrentDomain.BaseDirectory;
         DbPath = Path.Combine(basePath, "tv_server.db");
     }
