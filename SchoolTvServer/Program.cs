@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using SchoolTvServer.Database;
 using SchoolTvServer.Middlewares;
 using SchoolTvServer.Services;
@@ -7,7 +8,6 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
     .AddEnvironmentVariables();
 
 ConfigurationManager configuration = builder.Configuration;
@@ -48,5 +48,12 @@ if (app.Environment.IsDevelopment())
 app.UseCors("AllowAll");
 app.MapControllers();
 app.UseMiddleware<PasswordMiddleware>();
+
+using (IServiceScope scope = app.Services.CreateScope())
+{
+    IServiceProvider services = scope.ServiceProvider;
+    DatabaseContext dbContext = services.GetRequiredService<DatabaseContext>();
+    dbContext.Database.Migrate();
+}
 
 app.Run();
