@@ -43,10 +43,10 @@ public record SunPhasesResponse
     private static DateTimeOffset? GetPhaseTime(List<SunPhase> phases, string phaseName)
     {
         SunPhase? phase = phases.FirstOrDefault(p => p.Name.Value == phaseName);
-        DateTime? utc = phase?.PhaseTime;
-        if (utc != null)
-            return new DateTimeOffset((DateTime)utc);
-
-        return null;
+        DateTime? date = phase?.PhaseTime;
+        
+        return date.HasValue 
+            ? new DateTimeOffset(DateTime.SpecifyKind(date.Value, DateTimeKind.Local))
+            : null;
     }
 }
