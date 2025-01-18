@@ -16,28 +16,22 @@ public partial class DatabaseContext
         
         List<DbSchoolBreak> response = [];
         var closestMiscBreak = notStartedBreaks.FirstOrDefault(b => b.BreakType == SchoolBreakType.Miscellaneous);
-        var winter = notStartedBreaks.FirstOrDefault(b => b.BreakType == SchoolBreakType.Winter);
-        var summer = notStartedBreaks.FirstOrDefault(b => b.BreakType == SchoolBreakType.Summer);
+        var termBreaking = notStartedBreaks.FirstOrDefault(b => b.BreakType == SchoolBreakType.TermBreaking);
             
         if (closestMiscBreak != null)
             response.Add(closestMiscBreak);
         
-        // Only show the winter break if its before the summer break.
-        // If it's eg. february and the winter break is over, we obviously only care about the misc and summer breaks
-        if (winter != null && winter.StartDate < summer?.StartDate)
-            response.Add(winter);
-            
-        if (summer != null)
-            response.Add(summer);
+        if (termBreaking != null)
+            response.Add(termBreaking);
 
         return response;
     }
 
-    public DbSchoolBreak? GetLatestStartedSummerBreak()
+    public DbSchoolBreak? GetLatestTermBreakingBreak()
     {
         var now = DateTimeOffset.UtcNow;
         var startedBreaks = SchoolBreaks.AsEnumerable()
-            .Where(b => b.BreakType == SchoolBreakType.Summer && b.StartDate < now);
+            .Where(b => b.BreakType == SchoolBreakType.TermBreaking && b.StartDate < now);
         return startedBreaks.MaxBy(b => b.StartDate);
     }
     

@@ -22,7 +22,7 @@ public class SchoolBreaksController(DatabaseContext context) : ControllerBase
                 BreakType = b.BreakType,
                 ColorHex = b.ColorHex
             }),
-            LatestStartedSummerBreakEndDate = context.GetLatestStartedSummerBreak()?.EndDate
+            LatestTermBreakingBreakEndDate = context.GetLatestTermBreakingBreak()?.EndDate
         });
     }
 }

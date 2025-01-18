@@ -7,5 +7,5 @@ public class SchoolBreaksResponse
     /// <summary>
     /// The date that the last expired break ended
     /// </summary>
-    public required DateTimeOffset? LatestStartedSummerBreakEndDate { get; set; }
+    public required DateTimeOffset? LatestTermBreakingBreakEndDate { get; set; }
 }
