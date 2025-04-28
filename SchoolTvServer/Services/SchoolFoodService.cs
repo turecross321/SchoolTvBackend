@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+﻿using System.Globalization;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using SchoolTvServer.Types.Settings;
 using SkolmatenApi.Client;
@@ -15,39 +16,28 @@ public class SchoolFoodService(ILogger<SchoolFoodService> logger, IMemoryCache m
         if (menu != null)
             return menu;
         
-        using SkolmatenClient client = new(logger, settings.Value.SkolmatenClientId, settings.Value.SkolmatenClientVersionId);
-        long schoolId;
+        using SkolmatenClient client = new(logger);
 
-        if (string.IsNullOrEmpty(settings.Value.SkolmatenSchoolId))
+        if (string.IsNullOrEmpty(settings.Value.SkolmatenSchoolUrlName))
         {
-            logger.LogWarning($"{nameof(settings.Value.SkolmatenSchoolId)} in settings hasn't been set. " +
-                              $"Fetching closest schools to {nameof(settings.Value.SchoolLatitude)} and {nameof(settings.Value.SchoolLongitude)}");
-            var schools = await client.GetSchoolsNearbyAsync(settings.Value.SchoolLatitude, settings.Value.SchoolLongitude);
-            List<School> enumerated = schools.ToList();
+            logger.LogError($"{nameof(settings.Value.SkolmatenSchoolUrlName)} in settings hasn't been set. " +
+                            $"You can figure out the URL name for your school by heading to https://skolmaten.se, navigating to your school, and copying the \"rokskola\"");
 
-            string schoolsText = "";
-            foreach (School school in enumerated)
-            {
-                schoolsText += $"- {school.Name} id=\"{school.Id}\"\n";
-            }
-
-            logger.LogInformation($"Found {enumerated.Count} schools. Please enter one of their IDs as {nameof(settings.Value.SkolmatenSchoolId)} in the config.\n" + schoolsText);
-            School? nearestSchool = enumerated.MinBy(s => s.UserDistance);
-            if (nearestSchool == null)
-            {
-                logger.LogError("Could not find a closest school.");
-                return null;
-            }
-            
-            logger.LogInformation($"Using {nearestSchool.Name}.");
-            schoolId = nearestSchool.Id;
-        }
-        else
-        {
-            schoolId = long.Parse(settings.Value.SkolmatenSchoolId);
+            return null;
         }
         
-        menu = await client.GetRecentMenu(schoolId, 2, 0);
+        var currentCulture = CultureInfo.CurrentCulture;
+        var calendar = currentCulture.Calendar;
+        var dateTime = DateTime.Now;
+
+        int weekNumber = calendar.GetWeekOfYear(
+            dateTime,
+            currentCulture.DateTimeFormat.CalendarWeekRule,
+            currentCulture.DateTimeFormat.FirstDayOfWeek);
+        
+        string schoolUrlName = settings.Value.SkolmatenSchoolUrlName;
+        
+        menu = await client.GetMenuAsync(schoolUrlName, weekNumber, dateTime.Year);
         
         memoryCache.Set(MemoryCacheKey, menu, TimeSpan.FromDays(1));
         return menu;

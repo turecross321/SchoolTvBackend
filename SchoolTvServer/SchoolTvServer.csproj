@@ -17,7 +17,7 @@
           <PrivateAssets>all</PrivateAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.8" />
-        <PackageReference Include="SkolmatenApi" Version="1.0.4" />
+        <PackageReference Include="SkolmatenApi" Version="2.0.1" />
         <PackageReference Include="SunCalcNet" Version="1.2.2" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
     </ItemGroup>

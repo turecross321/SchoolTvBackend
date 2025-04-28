@@ -7,9 +7,7 @@ public record ServerSettings
     public string NightLogoPngPath { get; set; }
     public string AprilFoolsLogoPngPath { get; set; }
     public string LogoAltText { get; set; }
-    public string SkolmatenClientId { get; set; }
-    public string SkolmatenClientVersionId { get; set; }
-    public string SkolmatenSchoolId { get; set; }
+    public string SkolmatenSchoolUrlName { get; set; }
     public string GoogleSheetsServiceSecretPath { get; set; }
     public string GoogleClassroomServiceSecretPath { get; set; }
     public string GoogleClassroomCourseId { get; set; }
