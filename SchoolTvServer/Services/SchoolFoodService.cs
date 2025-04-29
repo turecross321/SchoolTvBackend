@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
+using SchoolTvServer.Types;
 using SchoolTvServer.Types.Settings;
 using SkolmatenApi.Client;
 using SkolmatenApi.Types;
@@ -10,11 +11,11 @@ namespace SchoolTvServer.Services;
 public class SchoolFoodService(ILogger<SchoolFoodService> logger, IMemoryCache memoryCache, IOptions<ServerSettings> settings)
 {
     private const string MemoryCacheKey = "SchoolMenu";
-    public async Task<Menu?> GetMenu()
+    public async Task<SchoolFoodMenuCache?> GetMenu()
     {
-        Menu? menu = memoryCache.Get<Menu>(MemoryCacheKey);
-        if (menu != null)
-            return menu;
+        SchoolFoodMenuCache? menus = memoryCache.Get<SchoolFoodMenuCache>(MemoryCacheKey);
+        if (menus != null)
+            return menus;
         
         using SkolmatenClient client = new(logger);
 
@@ -37,9 +38,15 @@ public class SchoolFoodService(ILogger<SchoolFoodService> logger, IMemoryCache m
         
         string schoolUrlName = settings.Value.SkolmatenSchoolUrlName;
         
-        menu = await client.GetMenuAsync(schoolUrlName, weekNumber, dateTime.Year);
+        Menu menu = await client.GetMenuAsync(schoolUrlName, weekNumber, dateTime.Year);
+        Menu menuNextWeek = await client.GetMenuAsync(schoolUrlName, weekNumber + 1, dateTime.Year);
+
+        menus = new SchoolFoodMenuCache
+        {
+            Menus = [menu, menuNextWeek]
+        };
         
-        memoryCache.Set(MemoryCacheKey, menu, TimeSpan.FromDays(1));
-        return menu;
+        memoryCache.Set(MemoryCacheKey, menus, TimeSpan.FromDays(1));
+        return menus;
     }
 }
